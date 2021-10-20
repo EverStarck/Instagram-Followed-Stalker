@@ -78,31 +78,27 @@ def compareFollows(freshList):
                 print("There were no changes")
                 return
 
-            changesB = []
-            changesA = []
+            changesB = ""
+            changesA = ""
             # A-B
             for id in justB:
                 for user in txtList:
                     if id == user["id"]:
-                        changesB.append(user)
+                        changesB = changesB + f"{bad} {user['id']} ---- {user['username']}\n"
             # B-A
             for id in justA:
                 for user in freshList:
                     if id == user["id"]:
-                        changesA.append(user)
+                        changesA = changesA + f"{good} {user['id']} ---- {user['username']}\n"
 
             if len(changesB) == 0:
                 print("There are no accounts that you used to follow but no longer\n")
             else:
-                print("Accounts that you no longer follow but that you followed before:")
-                for acc in changesB:
-                    print(f"{bad} {acc['id']} ---- {acc['username']}\n")
+                print("Accounts that you no longer follow but that you followed before:\n",changesB)
             if len(changesA) == 0:
                 print("There aren't new follows\n")
             else:
-                print("Tracked accounts that are not in your txt:")
-                for acc in changesA:
-                    print(f"{good} {acc['id']} ---- {acc['username']}\n")
+                print("Tracked accounts that are not in your txt:\n",changesA)
         return True
     except:
         print("There was an error trying to open the file. Check that everything is fine and if the error persists, generate a new one")
