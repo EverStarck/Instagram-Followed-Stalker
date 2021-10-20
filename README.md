@@ -1,4 +1,4 @@
-# igFollowing
+# Instagram Followed Stalker
 _Track the changes in the accounts you follow. (Who do you stop following or what new account do you follow)_
 <br />
 <br />
@@ -30,7 +30,7 @@ Tracked accounts that are not in your txt:
 1) Clone the repository
 
 ```
-$ git clone https://github.com/EverStarck/igFollowing
+$ git clone https://github.com/EverStarck/Instagram-Followed-Stalker
 ```
 
 2) Install the dependencies
