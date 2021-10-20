@@ -1,8 +1,8 @@
 import requests
 import re
+import ast
 import sys, colorama
 from colorama import Fore, Style
-from pathlib import Path
 
 USER_AGENT = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; en-US; scale=2.00; 828x1792; 165586599)"
 COOKIE = ''
@@ -35,6 +35,7 @@ def getID():
         )
         sys.exit()
 
+
 # Save list of follow users in txt
 def saveFile(itemToWrite):
     try:
@@ -48,8 +49,29 @@ def saveFile(itemToWrite):
         print("Hubo un error guardando los usuarios en el archivo")
         return False
 
-def compareFollows(followingList):
-    print(followingList)
+
+# Open follows file and compare with fresh instagram follows
+def compareFollows(freshList):
+    try:
+        with open(sys.argv[3], "r") as file:
+            txtList = file.read()
+            txtList = ast.literal_eval(txtList)
+            txtSet = set()
+            for user in txtList:
+                txtSet.add(user["id"])
+            print(txtSet)
+            freshSet = set()
+            for user in freshList:
+                freshSet.add(user["id"])
+            print(freshSet)
+
+            print(txtSet - freshSet, "A-B")
+
+        return True
+    except:
+        print("Hubo un error intentando abrir el archivo")
+        return False
+
 
 # Get list of all follow user
 def getFollowers():
@@ -64,17 +86,13 @@ def getFollowers():
             json = res.json()
             followingList = []
             for user in json["users"]:
-                defaultDict = {
-                    "id": user["pk"],
-                    "username": user["username"],
-                    "photo": user["profile_pic_url"],
-                }
+                defaultDict = {"id": user["pk"], "username": user["username"]}
                 followingList.append(defaultDict)
             if saveFollows:
                 saveFile(followingList)
                 return
             compareFollows(followingList)
-            return True
+            return
         else:
             print("Hubo un error obteniendo los followers")
             return False
