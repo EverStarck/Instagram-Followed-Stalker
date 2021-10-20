@@ -36,6 +36,7 @@ def getID():
         return {
             "id": userInfo["graphql"]["user"]["id"],
             "followersNumber": userInfo["graphql"]["user"]["edge_follow"]["count"],
+            "isPrivate": userInfo["graphql"]["user"]["is_private"]
         }
     except:
         print(
@@ -108,6 +109,9 @@ def compareFollows(freshList):
 # Get list of all follow user
 def getFollowers():
     userID = getID()
+    if userID['isPrivate']:
+        print("The account is private, you cannot get followers info.")
+        return
     try:
         req = requests.session()
         req.headers.update(headers)
