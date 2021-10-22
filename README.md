@@ -19,7 +19,7 @@ Accounts that you no longer follow but that you followed before:
 [-] 1234567890 ---- TestAccount
 
 Tracked accounts that are not in your txt:
-[] 123456789 ---- Other Test
+[+] 123456789 ---- Other Test
 
 
 [Δ][Δ] No changes were made to your txt. If you want to update it, you must execute the command again: python igFollowing.py acountName 1
