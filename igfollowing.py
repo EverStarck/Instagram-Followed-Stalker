@@ -36,7 +36,8 @@ def getID():
         return {
             "id": userInfo["graphql"]["user"]["id"],
             "followersNumber": userInfo["graphql"]["user"]["edge_follow"]["count"],
-            "isPrivate": userInfo["graphql"]["user"]["is_private"]
+            "isPrivate": userInfo["graphql"]["user"]["is_private"],
+            "followed_by_viewer": userInfo["graphql"]["user"]["followed_by_viewer"]
         }
     except:
         print(
@@ -109,7 +110,7 @@ def compareFollows(freshList):
 # Get list of all follow user
 def getFollowers():
     userID = getID()
-    if userID['isPrivate']:
+    if userID['isPrivate'] and userID['followed_by_viewer'] == False:
         print("The account is private, you cannot get followers info.")
         return
     try:
